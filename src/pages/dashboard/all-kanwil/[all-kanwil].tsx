@@ -21,7 +21,7 @@ const AllKanwilDashboard = (props: { region: percentageProps[] }) => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      push('/dashboard/all-kanwil/&')
+      push('/dashboard/all-kanwil')
     }, 10000)
 
     return () => clearInterval(interval)

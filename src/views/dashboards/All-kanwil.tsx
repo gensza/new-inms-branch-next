@@ -13,7 +13,14 @@ import ReactApexcharts from 'src/@core/components/react-apexcharts'
 // ** Util Import
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
 
-const AllKanwil = (props: any) => {
+type AllKanwilProps = {
+  series: number
+  color?: string
+  seriesName: string
+  seriesTotal: number
+}
+
+const AllKanwil = (props: AllKanwilProps) => {
   const { series, color = '#eceff1', seriesName, seriesTotal } = props
 
   // ** Hook
