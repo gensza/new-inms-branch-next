@@ -22,6 +22,12 @@ type AllKanwilProps = {
 
 const AllKanwil = (props: AllKanwilProps) => {
   const { series, color = '#eceff1', seriesName, seriesTotal } = props
+  const countSeries = (series - 80) * 5
+
+  const seriesToString = countSeries.toString()
+  const seriesSplit = seriesToString.split('.')
+  const seriesString = series === 100 ? '1' : '0.' + seriesSplit[0]
+  const seriesNum = parseFloat(seriesString)
 
   // ** Hook
   const theme = useTheme()
@@ -31,7 +37,7 @@ const AllKanwil = (props: AllKanwilProps) => {
       sparkline: { enabled: true }
     },
     stroke: { lineCap: 'round' },
-    colors: [color],
+    colors: [hexToRGBA(color, seriesNum)],
     states: {
       hover: {
         filter: { type: 'none' }
@@ -44,7 +50,7 @@ const AllKanwil = (props: AllKanwilProps) => {
       radialBar: {
         endAngle: 90,
         startAngle: -90,
-        hollow: { size: '64%' },
+        hollow: { size: '50%' },
         track: {
           strokeWidth: '40%',
           background: hexToRGBA(theme.palette.customColors.trackBg, 1)
@@ -56,14 +62,18 @@ const AllKanwil = (props: AllKanwilProps) => {
             fontWeight: 600,
             color: theme.palette.text.primary,
             fontFamily: theme.typography.fontFamily,
-            fontSize: theme.typography.h4.fontSize as string
+            fontSize: theme.typography.h4.fontSize as string,
+
+            formatter: function () {
+              return series + '%'
+            }
           }
         }
       }
     },
     grid: {
       padding: {
-        bottom: 15
+        bottom: 9
       }
     },
     responsive: [
@@ -88,10 +98,18 @@ const AllKanwil = (props: AllKanwilProps) => {
         <Typography variant='h5' sx={{ textAlign: 'center', color: 'success.main' }}>
           {seriesName}
         </Typography>
-        <Typography variant='body2' sx={{ textAlign: 'center', color: 'success.main' }}>
+        <Typography variant='body2' sx={{ textAlign: 'center', color: 'success.main', marginBottom: -5 }}>
           ({seriesTotal})
         </Typography>
-        <ReactApexcharts type='radialBar' height={200} series={[series]} options={options} />
+        <ReactApexcharts type='radialBar' height={200} series={[countSeries]} options={options} />
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <Typography variant='body2' sx={{ color: 'text.disabled', paddingLeft: 2 }}>
+            80
+          </Typography>
+          <Typography variant='body2' sx={{ color: 'text.disabled', paddingRight: 2 }}>
+            100
+          </Typography>
+        </div>
       </CardContent>
     </Card>
   )

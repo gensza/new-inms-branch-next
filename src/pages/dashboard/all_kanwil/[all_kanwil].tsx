@@ -1,5 +1,5 @@
 import Grid from '@mui/material/Grid'
-import AllKanwil from 'src/views/dashboards/All-kanwil'
+import AllKanwil from 'src/views/dashboards/AllKanwil'
 
 import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
 import { useEffect } from 'react'
@@ -21,7 +21,7 @@ const AllKanwilDashboard = (props: { region: percentageProps[] }) => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      push('/dashboard/all-kanwil/&')
+      push('/dashboard/all_kanwil')
     }, 10000)
 
     return () => clearInterval(interval)
